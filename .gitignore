@@ -1,0 +1,5 @@
+.venv_step/
+saida_glb/
+*.step
+*.stp
+__pycache__/
