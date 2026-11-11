@@ -8,8 +8,8 @@ rem Uso: de duplo clique (converte todos os .step da pasta) ou arraste um .step/
 set "VENV=%~dp0.venv_step"
 set "PYEXE="
 
-rem CadQuery funciona melhor com Python 3.10 a 3.12
-for %%V in (3.12 3.11 3.10 3.13) do if not defined PYEXE (py -%%V -c "import sys" >nul 2>&1 && set "PYEXE=py -%%V")
+rem CadQuery funciona melhor com Python 3.10 a 3.12 (3.13 e 3.14 sao tentados por ultimo)
+for %%V in (3.12 3.11 3.10 3.13 3.14) do if not defined PYEXE (py -%%V -c "import sys" >nul 2>&1 && set "PYEXE=py -%%V")
 if not defined PYEXE (python -c "import sys" >nul 2>&1 && set "PYEXE=python")
 if not defined PYEXE goto sem_python
 
