@@ -9,6 +9,7 @@ import cadquery as cq
 TOLERANCIA_LINEAR = 0.5   # mm
 TOLERANCIA_ANGULAR = 0.3  # rad
 PASTA_SAIDA = "saida_glb"
+ARQUIVOS_POR_PASTA = 5  # cada subpasta ("pasta 1", "pasta 2", ...) recebe ate 5 .glb
 
 
 def tamanho_mb(caminho):
@@ -139,8 +140,11 @@ def main():
     print("%d arquivo(s) para converter." % len(arquivos))
 
     resumo = []
-    for caminho in arquivos:
-        pasta_saida = os.path.join(os.path.dirname(os.path.abspath(caminho)), PASTA_SAIDA)
+    for indice, caminho in enumerate(arquivos):
+        # Agrupa a saida: arquivos 0-4 -> pasta 1, 5-9 -> pasta 2, ... (.glb e .json juntos)
+        numero_pasta = indice // ARQUIVOS_POR_PASTA + 1
+        pasta_saida = os.path.join(os.path.dirname(os.path.abspath(caminho)),
+                                   PASTA_SAIDA, "pasta %d" % numero_pasta)
         try:
             resumo.append(processar(caminho, pasta_saida))
         except Exception as erro:
